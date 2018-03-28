@@ -1,0 +1,21 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="#{facesContext.externalContext.requestContextPath}/layout/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <a4j:outputPanel styleClass="panel-centered">
+                <span>Добавление региона</span>
+                <h:inputText id="title" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="Найменование" value="#{applicationModel.addRegion.region.valueRu}" required="true"/>
+                <rich:message for="code" ajaxRendered="true"/>
+                <span>Загрузить фото</span>
+                <rich:fileUpload  fileUploadListener="#{applicationModel.addRegion.addFile}"/>
+                <a4j:commandButton style="width: 100%; height: 30px; margin-top: 5px" execute="@form" action="#{applicationModel.addRegion.add()}" value="ADD"/>
+            </a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

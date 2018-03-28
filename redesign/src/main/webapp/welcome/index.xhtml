@@ -1,0 +1,42 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="#{facesContext.externalContext.requestContextPath}/layout/template.xhtml">
+    <ui:define name="content">
+        <f:event type="preRenderView" listener="#{applicationModel.clear()}"/>
+        <h:form>
+            <a4j:outputPanel id="list" ajaxRendered="true">
+                <div class="line-block">
+                    <ul>
+                        <li>
+                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
+                        </li>
+                        <li>
+                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
+                        </li>
+                        <li>
+                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
+                        </li>
+                    </ul>
+                </div>
+                <ui:repeat value="#{applicationModel.regions}" var="region">
+
+                        <div class="block">
+                            <a4j:commandLink action="#{applicationModel.delete(region)}" render="list">
+                                <img src="#{facesContext.externalContext.requestContextPath}/resources/img/delete.png" style="position: absolute; top: 0; right: 0; width: 36px; height: 36px;padding: 5px" alt="X"/>
+                            </a4j:commandLink>
+                            <a4j:commandLink action="#{applicationModel.addSight.setRegion(region)}">
+                                <img src="#{facesContext.externalContext.requestContextPath}/rest/download?type=region&amp;id=#{region.id}"
+                                     alt="IMG"/>
+                                <p class="title">#{region.valueRu}</p>
+                            </a4j:commandLink>
+                        </div>
+                </ui:repeat>
+            </a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

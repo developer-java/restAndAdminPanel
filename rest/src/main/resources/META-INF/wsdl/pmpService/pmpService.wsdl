@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<definitions xmlns="http://schemas.xmlsoap.org/wsdl/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://www.sud.kz/cabinet/v1" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" name="ShepService" targetNamespace="http://www.sud.kz/cabinet/v1">
+    <types>
+        <xsd:schema>
+            <xsd:import namespace="http://www.sud.kz/cabinet/v1" schemaLocation="pmpService.xsd"/>
+        </xsd:schema>
+    </types>
+    <message name="sendMessageIn">
+        <part name="sendMessageRequest" element="tns:sendMessageRequest"/>
+    </message>
+    <message name="sendMessageOut">
+        <part name="sendMessageResponse" element="tns:sendMessageResponse"/>
+    </message>
+    <portType name="ShepPortType">
+        <operation name="sendMessage">
+            <input name="sendMessageIn" message="tns:sendMessageIn"/>
+            <output name="sendMessageOut" message="tns:sendMessageOut"/>
+        </operation>
+    </portType>
+    <binding name="ShepBinding" type="tns:ShepPortType">
+        <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="sendMessage">
+            <soap:operation/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+    <service name="ShepService">
+        <port name="ShepPort" binding="tns:ShepBinding">
+            <soap:address location="REPLACE_WITH_ACTUAL_URL"/>
+        </port>
+    </service>
+</definitions>

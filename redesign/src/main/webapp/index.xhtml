@@ -1,0 +1,22 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="#{facesContext.externalContext.requestContextPath}/layout/template.xhtml">
+        <ui:define name="metadata">
+            <f:event type="preRenderView" listener="#{autorizeModel.red()}"/>
+        </ui:define>
+        <ui:define name="content">
+            <div class="login">
+                <h:form>
+                    <h:outputText value="Авторизация" styleClass="text"/>
+                    <h:inputText a:placeholder="Your login..." style="margin-top: 50px" styleClass="defaultInput" value="#{autorizeModel.login}" required="true"/>
+                    <h:inputSecret a:placeholder="Password" styleClass="defaultInput" value="#{autorizeModel.pass}" required="true"/>
+                    <h:commandButton styleClass="defaultButton" action="#{autorizeModel.goToSign()}" execute="@form" value="Sign"/>
+                </h:form>
+            </div>
+        </ui:define>
+</ui:composition>

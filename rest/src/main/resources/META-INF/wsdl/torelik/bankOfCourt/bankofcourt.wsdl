@@ -1,0 +1,294 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://court.bee.kz/bankofcourt/v3" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="bankOfCourtWS" targetNamespace="http://court.bee.kz/bankofcourt/v3">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://court.bee.kz/bankofcourt/v3" targetNamespace="http://court.bee.kz/bankofcourt/v3" version="1.0">
+
+  <xs:element name="findRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element minOccurs="0" name="year" type="xs:int"/>
+        <xs:element minOccurs="0" name="regionCode" type="xs:string"/>
+        <xs:element minOccurs="0" name="categoryCode" type="xs:string"/>
+        <xs:element minOccurs="0" name="generalizationCode" type="xs:string"/>
+        <xs:element minOccurs="0" name="courtCode" type="xs:string"/>
+        <xs:element minOccurs="0" name="caseNumber" type="xs:string"/>
+        <xs:element minOccurs="0" name="participantIdentificator" type="xs:string"/>
+        <xs:element minOccurs="0" name="participantName" type="xs:string"/>
+        <xs:element minOccurs="0" name="trialDate" type="xs:date"/>
+        <xs:element name="documentDateFrom" type="xs:date"/>
+        <xs:element minOccurs="0" name="documentDateTo" type="xs:date"/>
+        <xs:element minOccurs="0" name="judicialActTypeCode" type="xs:string"/>
+        <xs:element name="apiKey" type="xs:string"/>
+        <xs:element minOccurs="0" name="pageNumber" type="xs:int"/>
+        <xs:element minOccurs="0" name="itemsPerPage" type="xs:int"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="findResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:abstractResponse">
+          <xs:sequence>
+            <xs:element minOccurs="0" name="totalCount" type="xs:int"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="courtCase" nillable="true" type="tns:courtCase"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getDocumentListRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="courtCaseSystemUid" type="xs:string"/>
+        <xs:element name="includeAttachments" type="xs:boolean"/>
+        <xs:element name="apiKey" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getDocumentListResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:abstractResponse">
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="document" nillable="true" type="tns:document"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getFileListRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="documentUid" type="xs:string"/>
+        <xs:element name="apiKey" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getFileListResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:abstractResponse">
+          <xs:sequence>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="attachment" nillable="true" type="tns:attachment"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getInstanceInfosRequest">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="courtCaseSystemUid" type="xs:string"/>
+        <xs:element name="apiKey" type="xs:string"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="getInstanceInfosResponse">
+    <xs:complexType>
+      <xs:complexContent>
+        <xs:extension base="tns:abstractResponse">
+          <xs:sequence>
+            <xs:element minOccurs="0" name="totalCount" type="xs:int"/>
+            <xs:element maxOccurs="unbounded" minOccurs="0" name="courtCase" nillable="true" type="tns:courtCase"/>
+          </xs:sequence>
+        </xs:extension>
+      </xs:complexContent>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:complexType abstract="true" name="abstractResponse">
+    <xs:sequence>
+      <xs:element minOccurs="0" name="errorCode" type="xs:int"/>
+      <xs:element minOccurs="0" name="errorMessage" type="xs:string"/>
+      <xs:element name="result" type="tns:requestResult"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="attachment">
+    <xs:sequence>
+      <xs:element name="fileName" type="xs:string"/>
+      <xs:element name="url" type="xs:string"/>
+      <xs:element name="md5" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="courtCase">
+    <xs:sequence>
+      <xs:element name="courtCaseSystemUid" type="xs:string"/>
+      <xs:element name="caseNumber" type="xs:string"/>
+      <xs:element name="instanceType" type="xs:string"/>
+      <xs:element name="date" type="xs:date"/>
+      <xs:element name="caseType" type="tns:caseType"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="participants" nillable="true" type="tns:participant"/>
+      <xs:element name="judge" type="xs:string"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="dynamics" nillable="true" type="tns:dynamic"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="documents" nillable="true" type="tns:document"/>
+      <xs:element name="publicAccess" type="tns:publicAccess"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="participant">
+    <xs:sequence>
+      <xs:element name="categoryCode" type="xs:string"/>
+      <xs:element name="name" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dynamic">
+    <xs:sequence>
+      <xs:element name="date" type="xs:dateTime"/>
+      <xs:element name="status" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="document">
+    <xs:sequence>
+      <xs:element name="documentUid" type="xs:string"/>
+      <xs:element name="documentDefinition" type="xs:string"/>
+      <xs:element name="documentDate" type="xs:date"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="attachments" nillable="true" type="tns:attachment"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="dictionary">
+    <xs:sequence>
+      <xs:element name="code" type="xs:string"/>
+      <xs:element name="valueRu" type="xs:string"/>
+      <xs:element name="valueKk" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:simpleType name="requestResult">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="Success"/>
+      <xs:enumeration value="Error"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="caseType">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="ADMINISTRATIVE"/>
+      <xs:enumeration value="CIVIL"/>
+      <xs:enumeration value="CRIMINAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+  <xs:simpleType name="publicAccess">
+    <xs:restriction base="xs:string">
+      <xs:enumeration value="FORBIDDEN_ALL"/>
+      <xs:enumeration value="FORBIDDEN_DOCUMENTS"/>
+      <xs:enumeration value="NORMAL"/>
+    </xs:restriction>
+  </xs:simpleType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="find">
+    <wsdl:part element="tns:findRequest" name="findRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getFileListResponse">
+    <wsdl:part element="tns:getFileListResponse" name="getFileListResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getInstanceInfos">
+    <wsdl:part element="tns:getInstanceInfosRequest" name="getInstanceInfosRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocumentListResponse">
+    <wsdl:part element="tns:getDocumentListResponse" name="getDocumentListResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getDocumentList">
+    <wsdl:part element="tns:getDocumentListRequest" name="getDocumentListRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getFileList">
+    <wsdl:part element="tns:getFileListRequest" name="getFileListRequest">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="getInstanceInfosResponse">
+    <wsdl:part element="tns:getInstanceInfosResponse" name="getInstanceInfosResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="findResponse">
+    <wsdl:part element="tns:findResponse" name="findResponse">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="bankOfCourtWSPortType">
+    <wsdl:operation name="getFileList">
+      <wsdl:input message="tns:getFileList" name="getFileList">
+    </wsdl:input>
+      <wsdl:output message="tns:getFileListResponse" name="getFileListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="find">
+      <wsdl:input message="tns:find" name="find">
+    </wsdl:input>
+      <wsdl:output message="tns:findResponse" name="findResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInstanceInfos">
+      <wsdl:input message="tns:getInstanceInfos" name="getInstanceInfos">
+    </wsdl:input>
+      <wsdl:output message="tns:getInstanceInfosResponse" name="getInstanceInfosResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentList">
+      <wsdl:input message="tns:getDocumentList" name="getDocumentList">
+    </wsdl:input>
+      <wsdl:output message="tns:getDocumentListResponse" name="getDocumentListResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="bankOfCourtWSSoapBinding" type="tns:bankOfCourtWSPortType">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="getFileList">
+      <soap:operation soapAction="urn:getFileList" style="document"/>
+      <wsdl:input name="getFileList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getFileListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="find">
+      <soap:operation soapAction="urn:find" style="document"/>
+      <wsdl:input name="find">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="findResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getInstanceInfos">
+      <soap:operation soapAction="urn:getInstanceInfos" style="document"/>
+      <wsdl:input name="getInstanceInfos">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getInstanceInfosResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getDocumentList">
+      <soap:operation soapAction="urn:getDocumentList" style="document"/>
+      <wsdl:input name="getDocumentList">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="getDocumentListResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="bankOfCourtWS">
+    <wsdl:port binding="tns:bankOfCourtWSSoapBinding" name="bankOfCourtWSPort">
+      <soap:address location="http://torelik.sud.kz:80/court/ws/bankofcourt"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

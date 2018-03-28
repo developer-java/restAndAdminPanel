@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xsd:schema xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns="http://www.sud.kz/cabinet/v1" targetNamespace="http://www.sud.kz/cabinet/v1">
+    <xsd:element name="sendMessageRequest">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="request" type="AsyncSendMessageRequest" minOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+    <xsd:complexType name="AsyncSendMessageRequest">
+        <xsd:sequence>
+            <xsd:element name="messageInfo" type="AsyncMessageInfo" minOccurs="1"/>
+            <xsd:element name="messageData" type="messageData" minOccurs="1"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="AsyncMessageInfo">
+        <xsd:sequence>
+            <xsd:element name="messageId" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="correlationId" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="serviceId" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="messageType" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="routeId" type="xsd:string" minOccurs="0"/>
+            <xsd:element name="messageDate" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="sessionId" type="guid" minOccurs="1"/>
+            <xsd:element name="sender" type="SenderInfo" minOccurs="1"/>
+            <xsd:element name="properties" type="property" minOccurs="0" maxOccurs="unbounded"/>
+        </xsd:sequence>
+    </xsd:complexType>
+    <xsd:complexType name="guid" xml:base="xsd:string">
+    </xsd:complexType>
+
+    <xsd:complexType name="SenderInfo">
+        <xsd:sequence>
+            <xsd:element name="sender" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="password" type="xsd:string" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="property">
+        <xsd:sequence>
+            <xsd:element name="key" type="xsd:int" minOccurs="0"/>
+            <xsd:element name="value" type="xsd:int" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:complexType name="messageData">
+        <xsd:sequence>
+            <xsd:element name="data" type="xsd:anyType" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+
+    <xsd:element name="sendMessageResponse">
+        <xsd:complexType>
+            <xsd:sequence>
+                <xsd:element name="response" type="AsyncSendMessageResponse" minOccurs="1"/>
+            </xsd:sequence>
+        </xsd:complexType>
+    </xsd:element>
+
+    <xsd:complexType name="AsyncSendMessageResponse">
+        <xsd:sequence>
+            <xsd:element name="messageId" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="correlationId" type="xsd:string" minOccurs="1"/>
+            <xsd:element name="responseDate" type="xsd:dateTime" minOccurs="1"/>
+            <xsd:element name="sessionId" type="guid" minOccurs="0"/>
+        </xsd:sequence>
+    </xsd:complexType>
+</xsd:schema>

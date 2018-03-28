@@ -1,0 +1,376 @@
+<?xml version='1.0' encoding='UTF-8'?><wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/" xmlns:tns="http://VS.Library/Types/NativeTypes/VS_Native_LawSuitService" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="VS_LawSuit_Service_IVSLawSuitHttpService" targetNamespace="http://VS.Library/Types/NativeTypes/VS_Native_LawSuitService">
+  <wsdl:types>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:ns1="http://VS.Library/Types/NativeTypes" targetNamespace="http://VS.Library/Types/NativeTypes/VS_Native_LawSuitService" version="1.0">
+
+  <xs:import namespace="http://VS.Library/Types/NativeTypes"/>
+
+  <xs:element name="SENDDOCUMENTREQUEST">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="REQUEST" type="ns1:P6004REQUEST"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDDOCUMENTREQUESTResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SENDDOCUMENTREQUESTReturn" type="ns1:SYSTEMINFOTYPE"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDLAWSUITREQUEST">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="REQUEST" type="ns1:P6001REQUEST"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDLAWSUITREQUESTResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SENDLAWSUITREQUESTReturn" type="ns1:SYSTEMINFOTYPE"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDPROTOCOLREQUEST">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="REQUEST" type="ns1:P6002REQUEST"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDPROTOCOLREQUESTResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SENDPROTOCOLREQUESTReturn" type="ns1:SYSTEMINFOTYPE"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDREMARKPROTOCOLREQUEST">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="REQUEST" type="ns1:P6003REQUEST"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+  <xs:element name="SENDREMARKPROTOCOLREQUESTResponse">
+    <xs:complexType>
+      <xs:sequence>
+        <xs:element name="SENDREMARKPROTOCOLREQUESTReturn" type="ns1:SYSTEMINFOTYPE"/>
+      </xs:sequence>
+    </xs:complexType>
+  </xs:element>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://VS.Library/Types/NativeTypes" targetNamespace="http://VS.Library/Types/NativeTypes" version="1.0">
+
+  <xs:complexType name="P6001REQUEST">
+    <xs:sequence>
+      <xs:element name="REQUESTDATA" nillable="true" type="tns:LAWSUITREQUESTDATA"/>
+      <xs:element name="SYSTEMINFO" nillable="true" type="tns:SYSTEMINFOTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LAWSUITREQUESTDATA">
+    <xs:sequence>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PAYMENTS" nillable="true" type="tns:PAYMENTTYPE"/>
+      <xs:element name="LAWSUIT" nillable="true" type="tns:LAWSUITTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="LEGALPERSONS" nillable="true" type="tns:LEGALPERSONINFOTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="PHYSICALPERSONS" nillable="true" type="tns:PHYSICALPERSONINFOTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DOCUMENTS" nillable="true" type="tns:DOCUMENTTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PAYMENTTYPE">
+    <xs:sequence>
+      <xs:element name="PAYCODE" nillable="true" type="xs:string"/>
+      <xs:element name="NUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="PAYDATE" nillable="true" type="xs:date"/>
+      <xs:element name="SUM" nillable="true" type="xs:double"/>
+      <xs:element name="COMMISSION" nillable="true" type="xs:double"/>
+      <xs:element name="CURRENCY" nillable="true" type="xs:string"/>
+      <xs:element name="TAXCODE" nillable="true" type="xs:string"/>
+      <xs:element name="KBK" nillable="true" type="xs:string"/>
+      <xs:element name="KNP" nillable="true" type="xs:string"/>
+      <xs:element name="NUMBC" nillable="true" type="xs:string"/>
+      <xs:element name="TRANSCODE" nillable="true" type="xs:string"/>
+      <xs:element name="AUTHCODE" nillable="true" type="xs:string"/>
+      <xs:element name="IIN" nillable="true" type="xs:string"/>
+      <xs:element name="FIO" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LAWSUITTYPE">
+    <xs:sequence>
+      <xs:element name="COURTCODE" nillable="true" type="xs:string"/>
+      <xs:element name="PUP" nillable="true" type="xs:string"/>
+      <xs:element name="LTYPE" nillable="true" type="xs:string"/>
+      <xs:element name="LCATEGORY" nillable="true" type="xs:string"/>
+      <xs:element name="SUBJECT" nillable="true" type="xs:string"/>
+      <xs:element name="CASE_TYPE" nillable="true" type="xs:string"/>
+      <xs:element name="KOAP_ARTICLE" nillable="true" type="xs:string"/>
+      <xs:element name="SUM" nillable="true" type="xs:double"/>
+      <xs:element name="SUMSS" nillable="true" type="xs:double"/>
+      <xs:element name="SUMMV" nillable="true" type="xs:double"/>
+      <xs:element name="SUMND" nillable="true" type="xs:double"/>
+      <xs:element name="SUMPN" nillable="true" type="xs:double"/>
+      <xs:element name="SUMNS" nillable="true" type="xs:double"/>
+      <xs:element name="SUMOP" nillable="true" type="xs:double"/>
+      <xs:element name="SUMUB" nillable="true" type="xs:double"/>
+      <xs:element name="SUMUV" nillable="true" type="xs:double"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="LEGALPERSONINFOTYPE">
+    <xs:sequence>
+      <xs:element name="SIDE" nillable="true" type="xs:string"/>
+      <xs:element name="NAME" nillable="true" type="xs:string"/>
+      <xs:element name="RNN" nillable="true" type="xs:string"/>
+      <xs:element name="BIN" nillable="true" type="xs:string"/>
+      <xs:element name="NUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="DATE" nillable="true" type="xs:date"/>
+      <xs:element name="LEGALADDRESS" nillable="true" type="xs:string"/>
+      <xs:element name="LEGALADDRESSKATO" nillable="true" type="xs:string"/>
+      <xs:element name="ACTUALADDRESS" nillable="true" type="xs:string"/>
+      <xs:element name="ACTUALADDRESSKATO" nillable="true" type="xs:string"/>
+      <xs:element name="BANKINGDETAILS" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PHYSICALPERSONINFOTYPE">
+    <xs:sequence>
+      <xs:element name="SIDE" nillable="true" type="xs:string"/>
+      <xs:element name="IIN" nillable="true" type="xs:string"/>
+      <xs:element name="RNN" nillable="true" type="xs:string"/>
+      <xs:element name="ALIEN" nillable="true" type="xs:string"/>
+      <xs:element name="FIRSTNAME" nillable="true" type="xs:string"/>
+      <xs:element name="SURNAME" nillable="true" type="xs:string"/>
+      <xs:element name="MIDDLENAME" nillable="true" type="xs:string"/>
+      <xs:element name="BIRTHDATE" nillable="true" type="xs:date"/>
+      <xs:element name="BIRTHADDRESS" nillable="true" type="xs:string"/>
+      <xs:element name="BIRTHADDRESSKATO" nillable="true" type="xs:string"/>
+      <xs:element name="DOCNAMECODE" nillable="true" type="xs:string"/>
+      <xs:element name="DOCNUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="DOCISSUEDATE" nillable="true" type="xs:date"/>
+      <xs:element name="DOCISSUERNAME" nillable="true" type="xs:string"/>
+      <xs:element name="HOMEADDRESS" nillable="true" type="xs:string"/>
+      <xs:element name="HOMEADDRESSKATO" nillable="true" type="xs:string"/>
+      <xs:element name="JOB" nillable="true" type="xs:string"/>
+      <xs:element name="PHONE" nillable="true" type="xs:string"/>
+      <xs:element name="EMAIL" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DOCUMENTTYPE">
+    <xs:sequence>
+      <xs:element name="DOCUMENTID" nillable="true" type="xs:string"/>
+      <xs:element name="DOCUMENTNAME" nillable="true" type="xs:string"/>
+      <xs:element name="DOCUMENTHASH" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="SYSTEMINFOTYPE">
+    <xs:sequence>
+      <xs:element name="MESSAGEID" nillable="true" type="xs:string"/>
+      <xs:element name="REQUESTNUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="MESSAGEDATE" nillable="true" type="xs:date"/>
+      <xs:element name="RESPONSECODE" nillable="true" type="xs:string"/>
+      <xs:element name="RESPONSEINFORU" nillable="true" type="xs:string"/>
+      <xs:element name="RESPONSEINFOKZ" nillable="true" type="xs:string"/>
+      <xs:element name="RESPONSEID" nillable="true" type="xs:string"/>
+      <xs:element name="DIGISIGN" nillable="true" type="xs:string"/>
+      <xs:element name="DECLARER_TYPE" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_IIN" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_LASTNAME" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_FIRSTNAME" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_PATRONYMIC" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_BIN" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_COMPANY_NAME_RU" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_COMPANY_NAME_KK" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_ADDRESS" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_PHONE" type="xs:string"/>
+      <xs:element minOccurs="0" name="DECLARER_EMAIL" type="xs:string"/>
+      <xs:element minOccurs="0" name="SIGNER_IIN" type="xs:string"/>
+      <xs:element minOccurs="0" name="SIGNER_LASTNAME" type="xs:string"/>
+      <xs:element minOccurs="0" name="SIGNER_FIRSTNAME" type="xs:string"/>
+      <xs:element minOccurs="0" name="SIGNER_PATRONYMIC" type="xs:string"/>
+      <xs:element minOccurs="0" name="SIGNER_POSITION" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="P6002REQUEST">
+    <xs:sequence>
+      <xs:element name="REQUESTDATA" nillable="true" type="tns:PROTOCOLREQUESTDATA"/>
+      <xs:element name="SYSTEMINFO" nillable="true" type="tns:SYSTEMINFOTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PROTOCOLREQUESTDATA">
+    <xs:sequence>
+      <xs:element name="CAUSE" nillable="true" type="tns:CAUSETYPE"/>
+      <xs:element name="PHYSICALPERSON" nillable="true" type="tns:PHYSICALPERSONINFOTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DOCUMENTS" nillable="true" type="tns:DOCUMENTTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="CAUSETYPE">
+    <xs:sequence>
+      <xs:element name="COURTCODE" nillable="true" type="xs:string"/>
+      <xs:element name="NUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="PLAINTIFF" nillable="true" type="xs:string"/>
+      <xs:element name="DEFENDANT" nillable="true" type="xs:string"/>
+      <xs:element name="TITLE" nillable="true" type="xs:string"/>
+      <xs:element name="DOCTYPE" nillable="true" type="xs:string"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="P6004REQUEST">
+    <xs:sequence>
+      <xs:element name="REQUESTDATA" nillable="true" type="tns:DOCUMENTREQUESTDATA"/>
+      <xs:element name="SYSTEMINFO" nillable="true" type="tns:SYSTEMINFOTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="DOCUMENTREQUESTDATA">
+    <xs:sequence>
+      <xs:element name="CAUSE" nillable="true" type="tns:CAUSETYPE"/>
+      <xs:element name="PHYSICALPERSON" nillable="true" type="tns:PHYSICALPERSONINFOTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DOCUMENTS" nillable="true" type="tns:DOCUMENTTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="P6003REQUEST">
+    <xs:sequence>
+      <xs:element name="REQUESTDATA" nillable="true" type="tns:REMARKPROTOCOLREQUESTDATA"/>
+      <xs:element name="SYSTEMINFO" nillable="true" type="tns:SYSTEMINFOTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="REMARKPROTOCOLREQUESTDATA">
+    <xs:sequence>
+      <xs:element name="CAUSE" nillable="true" type="tns:CAUSETYPE"/>
+      <xs:element name="PROTOCOL" nillable="true" type="tns:PROTOCOLTYPE"/>
+      <xs:element name="PHYSICALPERSON" nillable="true" type="tns:PHYSICALPERSONINFOTYPE"/>
+      <xs:element maxOccurs="unbounded" minOccurs="0" name="DOCUMENTS" nillable="true" type="tns:DOCUMENTTYPE"/>
+    </xs:sequence>
+  </xs:complexType>
+
+  <xs:complexType name="PROTOCOLTYPE">
+    <xs:sequence>
+      <xs:element name="NUMBER" nillable="true" type="xs:string"/>
+      <xs:element name="DATE" nillable="true" type="xs:date"/>
+    </xs:sequence>
+  </xs:complexType>
+
+</xs:schema>
+  </wsdl:types>
+  <wsdl:message name="SENDLAWSUITREQUESTResponse">
+    <wsdl:part element="tns:SENDLAWSUITREQUESTResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDPROTOCOLREQUESTResponse">
+    <wsdl:part element="tns:SENDPROTOCOLREQUESTResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDDOCUMENTREQUEST">
+    <wsdl:part element="tns:SENDDOCUMENTREQUEST" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDDOCUMENTREQUESTResponse">
+    <wsdl:part element="tns:SENDDOCUMENTREQUESTResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDREMARKPROTOCOLREQUESTResponse">
+    <wsdl:part element="tns:SENDREMARKPROTOCOLREQUESTResponse" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDLAWSUITREQUEST">
+    <wsdl:part element="tns:SENDLAWSUITREQUEST" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDPROTOCOLREQUEST">
+    <wsdl:part element="tns:SENDPROTOCOLREQUEST" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:message name="SENDREMARKPROTOCOLREQUEST">
+    <wsdl:part element="tns:SENDREMARKPROTOCOLREQUEST" name="parameters">
+    </wsdl:part>
+  </wsdl:message>
+  <wsdl:portType name="IVSLawSuit">
+    <wsdl:operation name="SENDLAWSUITREQUEST">
+      <wsdl:input message="tns:SENDLAWSUITREQUEST" name="SENDLAWSUITREQUEST">
+    </wsdl:input>
+      <wsdl:output message="tns:SENDLAWSUITREQUESTResponse" name="SENDLAWSUITREQUESTResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDPROTOCOLREQUEST">
+      <wsdl:input message="tns:SENDPROTOCOLREQUEST" name="SENDPROTOCOLREQUEST">
+    </wsdl:input>
+      <wsdl:output message="tns:SENDPROTOCOLREQUESTResponse" name="SENDPROTOCOLREQUESTResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDDOCUMENTREQUEST">
+      <wsdl:input message="tns:SENDDOCUMENTREQUEST" name="SENDDOCUMENTREQUEST">
+    </wsdl:input>
+      <wsdl:output message="tns:SENDDOCUMENTREQUESTResponse" name="SENDDOCUMENTREQUESTResponse">
+    </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDREMARKPROTOCOLREQUEST">
+      <wsdl:input message="tns:SENDREMARKPROTOCOLREQUEST" name="SENDREMARKPROTOCOLREQUEST">
+    </wsdl:input>
+      <wsdl:output message="tns:SENDREMARKPROTOCOLREQUESTResponse" name="SENDREMARKPROTOCOLREQUESTResponse">
+    </wsdl:output>
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="VS_LawSuit_Service_IVSLawSuitHttpServiceSoapBinding" type="tns:IVSLawSuit">
+    <soap:binding style="document" transport="http://schemas.xmlsoap.org/soap/http"/>
+    <wsdl:operation name="SENDLAWSUITREQUEST">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="SENDLAWSUITREQUEST">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SENDLAWSUITREQUESTResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDPROTOCOLREQUEST">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="SENDPROTOCOLREQUEST">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SENDPROTOCOLREQUESTResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDDOCUMENTREQUEST">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="SENDDOCUMENTREQUEST">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SENDDOCUMENTREQUESTResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="SENDREMARKPROTOCOLREQUEST">
+      <soap:operation soapAction="" style="document"/>
+      <wsdl:input name="SENDREMARKPROTOCOLREQUEST">
+        <soap:body use="literal"/>
+      </wsdl:input>
+      <wsdl:output name="SENDREMARKPROTOCOLREQUESTResponse">
+        <soap:body use="literal"/>
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="VS_LawSuit_Service_IVSLawSuitHttpService">
+    <wsdl:port binding="tns:VS_LawSuit_Service_IVSLawSuitHttpServiceSoapBinding" name="VS_LawSuit_Service_IVSLawSuitHttpPort">
+      <soap:address location="http://torelik.sud.kz:80/court/ws/lawsuitV3"/>
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

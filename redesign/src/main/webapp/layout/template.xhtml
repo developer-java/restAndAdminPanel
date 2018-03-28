@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<f:view xmlns="http://www.w3.org/1999/xhtml"
+        xmlns:ui="http://java.sun.com/jsf/facelets"
+        xmlns:h="http://java.sun.com/jsf/html"
+        xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+        xmlns:f="http://java.sun.com/jsf/core" xmlns:a4j="http://richfaces.org/a4j"
+        xmlns:rich="http://richfaces.org/rich">
+    <ui:insert name="metadata"/>
+    <h:head id="head">
+        <meta charset="utf-8"/>
+        <meta http-equiv="x-ua-compatible" content="ie=edge"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1"/>
+        <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate"/>
+        <meta http-equiv="Pragma" content="no-cache"/>
+        <meta http-equiv="Expiresources" content="0"/>
+        <title>SYTEM_CLOUD</title>
+        <meta name="description" content=""/>
+        <link rel="stylesheet" href="#{facesContext.externalContext.requestContextPath}/resources/css/main.css"/>
+        <ui:insert name="styles"/>
+    </h:head>
+    <h:body id="body">
+        <h:outputScript library="javascripts" name="jquery.blockUI.2_66.js"/>
+        <h:outputScript library="javascripts" name="jquery.cookie.js"/>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <ui:insert name="content"/>
+        <script type="javascript" src="#{facesContext.externalContext.requestContextPath}/resources/javascripts/jquery.js"/>
+        <ui:insert name="scripts"/>
+    </h:body>
+</f:view>

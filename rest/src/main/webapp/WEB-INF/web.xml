@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="3.0" xmlns="http://java.sun.com/xml/ns/javaee"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd">
+    <context-param>
+        <param-name>resteasy.scan</param-name>
+        <param-value>true</param-value>
+    </context-param>
+
+    <context-param>
+        <param-name>resteasy.servlet.mapping.prefix</param-name>
+        <param-value>/</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>GpRestApplication</servlet-name>
+        <servlet-class>org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
+        <init-param>
+            <param-name>javax.ws.rs.Application</param-name>
+            <param-value>kz.sud.cabinet.officeRest.MainRestApplication</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>GpRestApplication</servlet-name>
+        <url-pattern>/*</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>FileDownloadServlet</servlet-name>
+        <servlet-class>kz.sud.cabinet.officeRest.servlet.FileDownloadServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>FileDownloadServlet</servlet-name>
+        <url-pattern>/download</url-pattern>
+    </servlet-mapping>
+    <session-config>
+        <session-timeout>15</session-timeout>
+        <cookie-config>
+            <http-only>true</http-only>
+            <!--<secure>true</secure>-->
+        </cookie-config>
+        <tracking-mode>COOKIE</tracking-mode>
+    </session-config>
+    <error-page>
+        <error-code>400</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>401</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>402</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>403</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>404</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>405</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>406</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>407</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>408</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>409</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>410</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>411</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>412</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>413</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+
+    <error-page>
+        <error-code>414</error-code>
+        <location>/error.xhtml</location>
+    </error-page>
+</web-app>

@@ -1,0 +1,1188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- edited with XMLSpy v2011 rel. 2 (http://www.altova.com) by noname (noname) -->
+<xs:schema xmlns="http://www.gamma.kz/msp/xsd" xmlns:xs="http://www.w3.org/2001/XMLSchema" targetNamespace="http://www.gamma.kz/msp/xsd" elementFormDefault="qualified" attributeFormDefault="unqualified" version="1.0">
+	<xs:element name="request" type="Request">
+		<xs:annotation>
+			<xs:documentation>Запрос (асинхронный для "Новый ШЭП"/синхронный для "Старый ШЭП"), отправляемый в систему мобильной подписи</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="response" type="Response">
+		<xs:annotation>
+			<xs:documentation>Ответ (асинхронный для "Новый ШЭП"/синхронный для "Старый ШЭП"), отправлямый системой мобильной подписи</xs:documentation>
+		</xs:annotation>
+	</xs:element>
+	<xs:element name="fault">
+		<xs:annotation>
+			<xs:documentation>Ошибка. Только для "Старый ШЭП"</xs:documentation>
+		</xs:annotation>
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element name="error" type="Error">
+					<xs:annotation>
+						<xs:documentation>Ответ об ошибке</xs:documentation>
+					</xs:annotation>
+				</xs:element>
+			</xs:sequence>
+		</xs:complexType>
+	</xs:element>
+	<xs:complexType name="Request">
+		<xs:annotation>
+			<xs:documentation>Запрос (асинхронный для "Новый ШЭП"/синхронный для "Старый ШЭП"), отправляемый в систему мобильной подписи</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="info" type="RequestInfo">
+				<xs:annotation>
+					<xs:documentation>Информация о запросе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="data" type="RequestData">
+				<xs:annotation>
+					<xs:documentation>Данные запроса</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Response">
+		<xs:annotation>
+			<xs:documentation>Ответ (асинхронный для "Новый ШЭП"/синхронный для "Старый ШЭП"), отправлямый системой мобильной подписи</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="info" type="ResponseInfo">
+				<xs:annotation>
+					<xs:documentation>Информация об ответе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="data" type="ResponseData" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные ответа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestInfo">
+		<xs:annotation>
+			<xs:documentation>Информация о запросе</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="operation">
+				<xs:annotation>
+					<xs:documentation>Наименование операции</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="pkcs10"/>
+						<xs:enumeration value="certification"/>
+						<xs:enumeration value="xmlSignature"/>
+						<xs:enumeration value="cmsSignedData"/>
+						<xs:enumeration value="userInformation"/>
+						<xs:enumeration value="xmlSignatureValidity"/>
+						<xs:enumeration value="cmsSignedDataValidity"/>
+						<xs:enumeration value="pulling"/>
+						<xs:enumeration value="simCardRegistration"/>
+						<xs:enumeration value="manageKeyPairPin"/>
+						<xs:enumeration value="alias"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="encoding" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кодировка сообщений. По умолчанию "UTF-8"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="routeId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор маршрута</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serviceId" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор взаимодействия</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ResponseInfo">
+		<xs:annotation>
+			<xs:documentation>Информация об ответе</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="operation">
+				<xs:annotation>
+					<xs:documentation>Наименование операции</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="pkcs10"/>
+						<xs:enumeration value="certification"/>
+						<xs:enumeration value="xmlSignature"/>
+						<xs:enumeration value="cmsSignedData"/>
+						<xs:enumeration value="userInformation"/>
+						<xs:enumeration value="xmlSignatureValidity"/>
+						<xs:enumeration value="cmsSignedDataValidity"/>
+						<xs:enumeration value="simCardRegistration"/>
+						<xs:enumeration value="manageKeyPairPin"/>
+						<xs:enumeration value="alias"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="isError" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Статус ошибки</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="error" type="Error" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Информация об ошибке</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="encoding" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Кодировка сообщений. По умолчанию "UTF-8"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="commandId" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Идентификатор команды</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="RequestData">
+		<xs:annotation>
+			<xs:documentation>Данные запроса</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="simCardRegistration" type="SIMCardRegistrationRequest">
+				<xs:annotation>
+					<xs:documentation>Регистрация СИМ-карты</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pkcs10" type="KeyPairGenAndPKCS10Request">
+				<xs:annotation>
+					<xs:documentation>Формирование запроса на выпуск сертификата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="certification" type="CertificationRequest">
+				<xs:annotation>
+					<xs:documentation>Привязка сертификата к ключевой паре</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xmlSignature" type="XMLSignatureRequest">
+				<xs:annotation>
+					<xs:documentation>Формирование XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmsSignedData" type="CMSSignedDataRequest">
+				<xs:annotation>
+					<xs:documentation>Формирование CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userInformation" type="UserInformationRequest">
+				<xs:annotation>
+					<xs:documentation>Получение информации о пользователе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xmlSignatureValidity" type="XMLSignatureValidityRequest">
+				<xs:annotation>
+					<xs:documentation>Проверка XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmsSignedDataValidity" type="CMSSignedDataValidityRequest">
+				<xs:annotation>
+					<xs:documentation>Проверка CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pulling" type="PullingRequest">
+				<xs:annotation>
+					<xs:documentation>Получение статуса обработки. Только для "Старый ШЭП"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manageKeyPairPin" type="ManageKeyPairPinRequest">
+				<xs:annotation>
+					<xs:documentation>Управление PIN-кодом ключевой пары</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alias" type="AliasRequest">
+				<xs:annotation>
+					<xs:documentation>Создание/изменение псевдонима</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="ResponseData">
+		<xs:annotation>
+			<xs:documentation>Данные ответа</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="simCardRegistration" type="SIMCardRegistrationResponse">
+				<xs:annotation>
+					<xs:documentation>Регистрация СИМ-карты</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="pkcs10" type="KeyPairGenAndPKCS10Response">
+				<xs:annotation>
+					<xs:documentation>Формирование запроса на выпуск сертификата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="certification" type="CertificationResponse">
+				<xs:annotation>
+					<xs:documentation>Привязка сертификата к ключевой паре</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xmlSignature" type="XMLSignatureResponse">
+				<xs:annotation>
+					<xs:documentation>Формирование XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmsSignedData" type="CMSSignedDataResponse">
+				<xs:annotation>
+					<xs:documentation>Формирование CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="userInformation" type="UserInformationResponse">
+				<xs:annotation>
+					<xs:documentation>Получение информации о пользователе</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="xmlSignatureValidity" type="XMLSignatureValidityResponse">
+				<xs:annotation>
+					<xs:documentation>Проверка XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="cmsSignedDataValidity" type="CMSSignedDataValidityResponse">
+				<xs:annotation>
+					<xs:documentation>Проверка CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="manageKeyPairPin" type="ManageKeyPairPinResponse">
+				<xs:annotation>
+					<xs:documentation>Управление PIN-кодом ключевой пары</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alias" type="AliasResponse">
+				<xs:annotation>
+					<xs:documentation>Создание/изменение псевдонима</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="KeyPairGenAndPKCS10Request">
+		<xs:annotation>
+			<xs:documentation>Запрос "Генерация ключевой пары и формирование запроса на выпуск сертификата"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phoneNumber">
+				<xs:annotation>
+					<xs:documentation>Номер телефона. Например, "77086350033"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="11"/>
+						<xs:maxLength value="11"/>
+						<xs:pattern value="7\d{10}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="keyPairGenNotificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Создание ключевой пары"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="keyPairGenNotificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Key pair generation"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="keyPairGenNotificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="subject" type="Subject">
+				<xs:annotation>
+					<xs:documentation>Отличительное имя сертификата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="publicKeyObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор открытого ключа</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.5.8">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.1.1.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="signatureObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор подписи</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.2">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.1.1.2">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="signatureNotificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Подписание запроса на выпуск сертификата"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="signatureNotificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Certification request signing"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="signatureNotificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeyPairGenAndPKCS10Response">
+		<xs:annotation>
+			<xs:documentation>Ответ "Генерация ключевой пары и формирование запроса на выпуск сертификата"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="body" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Запрос на выпуск сертификата</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificationRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Привязка сертификата к ключевой паре"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="certificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Сертификация ключевой пары"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Key pair certification"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CertificationResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Привязка сертификата к ключевой паре"</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="XMLSignatureRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Формирование XML Signature"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="xml" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>XML для подписи. Должен передаваться как есть. Например, "<foo>bar</foo>"</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keySelector" type="KeySelector">
+				<xs:annotation>
+					<xs:documentation>Селектор ключа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digestObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор алгоритма хеширования</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.3.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="caCertificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Корневой сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Подписание документа"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Document signing"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="canonicalizationMethod" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Метод канонизации. Если не указан, то по умолчанию используется "http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="http://www.w3.org/TR/2001/REC-xml-c14n-20010315"/>
+						<xs:enumeration value="http://www.w3.org/TR/2001/REC-xml-c14n-20010315#WithComments"/>
+						<xs:enumeration value="http://www.w3.org/2001/10/xml-exc-c14n#"/>
+						<xs:enumeration value="http://www.w3.org/2001/10/xml-exc-c14n#WithComments"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="XMLSignatureResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Формирование XML Signature"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="body" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CMSSignedDataRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Формирование CMS Signed Data"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="data" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Подписываемые данные</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="keySelector" type="KeySelector">
+				<xs:annotation>
+					<xs:documentation>Селектор ключа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digestObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор алгоритма хеширования</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.3.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="signatureObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор подписи</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.2">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.1.1.2">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="caCertificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Корневой сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Подписание документа"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Document signing"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CMSSignedDataResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Формирование CMS Signed Data"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="body" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UserInformationRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Получение информации о пользователе"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="IIN">
+				<xs:annotation>
+					<xs:documentation>ИИН (Индивидуальный идентификационный номер). Например, "IIN123456789012"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="15"/>
+						<xs:maxLength value="15"/>
+						<xs:pattern value="IIN\d{12}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="UserInformationResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Получение информации о пользователе"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phoneNumbersWithCertificates" type="PhoneNumberWithCertificates" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Телефонные номера с сертификатами</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="XMLSignatureValidityRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Проверка XML Signature"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="xmlSignature" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>XML Signature</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digestObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор алгоритма хеширования</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.3.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="caCertificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Корневой сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="XMLSignatureValidityResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Проверка XML Signature"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="valid" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Статус проверки подписи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CMSSignedDataValidityRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Проверка CMS Signed Data"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="cmsSignedData" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>CMS Signed Data</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="data" type="xs:base64Binary" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Данные, которые подписывались. Если данные не переданы, то они будут извлечены из cmsSignedData</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="digestObjectIdentifier">
+				<xs:annotation>
+					<xs:documentation>Объектный идентификатор алгоритма хеширования</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration value="1.3.6.1.4.1.6801.1.2.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор ТОО "НИЛ "Гамма Технологии"</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+						<xs:enumeration value="1.2.398.3.10.1.3.1">
+							<xs:annotation>
+								<xs:documentation>Объектный идентификатор Республики Казахстан</xs:documentation>
+							</xs:annotation>
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="caCertificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Корневой сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="CMSSignedDataValidityResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Проверка CMS Signed Data"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="valid" type="xs:boolean">
+				<xs:annotation>
+					<xs:documentation>Статус проверки подписи</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SIMCardRegistrationRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Регистрация СИМ-карты"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phoneNumber">
+				<xs:annotation>
+					<xs:documentation>Номер телефона. Например, "77086350033"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="11"/>
+						<xs:maxLength value="11"/>
+						<xs:pattern value="7\d{10}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="SIMCardRegistrationResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Регистрация СИМ-карты"</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="ManageKeyPairPinRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Управление PIN-кодом ключевой пары"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="lightKeySelector" type="LightKeySelector">
+				<xs:annotation>
+					<xs:documentation>Облегченный селектор ключа</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="notificationTitle" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на русском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "Разблокировка ПИН-кода"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleEn" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на английском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию. Например, "PIN-code unblocking"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="notificationTitleKz" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Текст на казахском языке, описывающий пользователю приложения на SIM-карте выполняемую операцию</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="200"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="ManageKeyPairPinResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Управление PIN-кодом ключевой пары"</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="AliasRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Создание/изменение псевдонима"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="certificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alias">
+				<xs:annotation>
+					<xs:documentation>Псевдоним</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+						<xs:pattern value="[\-\._a-zа-я0-9]{1,50}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="AliasResponse">
+		<xs:annotation>
+			<xs:documentation>Ответ "Создание/изменение псевдонима"</xs:documentation>
+		</xs:annotation>
+	</xs:complexType>
+	<xs:complexType name="Error">
+		<xs:annotation>
+			<xs:documentation>Ответ об ошибке</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="code" type="xs:int">
+				<xs:annotation>
+					<xs:documentation>Код</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="message" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Сообщение</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="stacktrace" type="xs:string" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Стектрейс</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="Subject">
+		<xs:annotation>
+			<xs:documentation>Отличительное имя сертификата</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="countryName">
+				<xs:annotation>
+					<xs:documentation>Страна. Например, "KZ".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="2"/>
+						<xs:maxLength value="2"/>
+						<xs:enumeration value="KZ"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organizationName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Наименование организациии. Например, "ТОО Иван".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="1024"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="organizationalUnitName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>БИН (Бизнес-идентификационный номер). Например, "BIN123456789012".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="15"/>
+						<xs:maxLength value="15"/>
+						<xs:pattern value="BIN\d{12}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="commonName">
+				<xs:annotation>
+					<xs:documentation>Фамилия Имя/Фамилия/Имя. Например, "Иванов Иван".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="serialNumber">
+				<xs:annotation>
+					<xs:documentation>ИИН (Индивидуальный идентификационный номер). Например, "IIN123456789012".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="15"/>
+						<xs:maxLength value="15"/>
+						<xs:pattern value="IIN\d{12}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="localityName">
+				<xs:annotation>
+					<xs:documentation>Город. Например, "Кокшетау".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="stateOrProvinceName">
+				<xs:annotation>
+					<xs:documentation>Область. Например, "Акмолинская область".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="surname" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Фамилия. Например, "Иванов".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="givenName" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Отчество. Например, "Иванович".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="100"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="emailAddress" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Адрес электронной почты. Например, "ivan.ivanov@mail.ru".</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="255"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="KeySelector">
+		<xs:annotation>
+			<xs:documentation>Селектор ключа</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="certificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="phoneNumber">
+				<xs:annotation>
+					<xs:documentation>Номер телефона. Например, "77086350033"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="11"/>
+						<xs:maxLength value="11"/>
+						<xs:pattern value="7\d{10}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="alias">
+				<xs:annotation>
+					<xs:documentation>Псевдоним</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+						<xs:pattern value="[\-\._a-zа-я0-9]{1,50}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="LightKeySelector">
+		<xs:annotation>
+			<xs:documentation>Облегченный селектор ключа</xs:documentation>
+		</xs:annotation>
+		<xs:choice>
+			<xs:element name="certificate" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Сертификат</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alias">
+				<xs:annotation>
+					<xs:documentation>Псевдоним</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+						<xs:pattern value="[\-\._a-zа-я0-9]{1,50}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:choice>
+	</xs:complexType>
+	<xs:complexType name="Certificate">
+		<xs:annotation>
+			<xs:documentation>Сертификат</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="body" type="xs:base64Binary">
+				<xs:annotation>
+					<xs:documentation>Тело</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="subject" type="Subject">
+				<xs:annotation>
+					<xs:documentation>Отличительное имя</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+			<xs:element name="alias" minOccurs="0">
+				<xs:annotation>
+					<xs:documentation>Псевдоним</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="1"/>
+						<xs:maxLength value="50"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PhoneNumberWithCertificates">
+		<xs:annotation>
+			<xs:documentation>Номер телефона со списком сертификатов</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="phoneNumber">
+				<xs:annotation>
+					<xs:documentation>Номер телефона. Например, "77086350033"</xs:documentation>
+				</xs:annotation>
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:minLength value="11"/>
+						<xs:maxLength value="11"/>
+						<xs:pattern value="7\d{10}"/>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:element>
+			<xs:element name="certificates" type="Certificate" minOccurs="0" maxOccurs="unbounded">
+				<xs:annotation>
+					<xs:documentation>Список сертификатов</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+	<xs:complexType name="PullingRequest">
+		<xs:annotation>
+			<xs:documentation>Запрос "Получение статуса обработки". Только для "Старый ШЭП"</xs:documentation>
+		</xs:annotation>
+		<xs:sequence>
+			<xs:element name="commandId" type="xs:string">
+				<xs:annotation>
+					<xs:documentation>Идентификатор команды</xs:documentation>
+				</xs:annotation>
+			</xs:element>
+		</xs:sequence>
+	</xs:complexType>
+</xs:schema>
