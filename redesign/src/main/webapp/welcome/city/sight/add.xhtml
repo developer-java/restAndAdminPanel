@@ -1,0 +1,53 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+                xmlns:ui="http://java.sun.com/jsf/facelets"
+                xmlns:f="http://java.sun.com/jsf/core"
+                xmlns:h="http://java.sun.com/jsf/html"
+                xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+                xmlns:rich="http://richfaces.org/rich"
+                xmlns:a4j="http://richfaces.org/a4j"
+                template="#{facesContext.externalContext.requestContextPath}/layout/template.xhtml">
+    <ui:define name="content">
+        <h:form>
+            <a4j:outputPanel styleClass="panel-centered">
+                <span>Добавление достопримечательностей</span>
+                <h:inputText id="valueRu" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="valueRu" value="#{applicationModel.addSightC.sightC.valueRu}" required="true"/>
+                <rich:message for="valueRu" ajaxRendered="true"/>
+
+                <h:inputText id="address" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="address" value="#{applicationModel.addSightC.sightC.addressRu}" required="true"/>
+                <rich:message for="address" ajaxRendered="true"/>
+
+                <h:inputText id="contact" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="contact" value="#{applicationModel.addSightC.sightC.contact}" required="true"/>
+                <rich:message for="contact" ajaxRendered="true"/>
+
+                <h:inputTextarea id="description" style="width: 100%; min-height: 100px; margin-top: 5px" a:placeholder="description" value="#{applicationModel.addSightC.sightC.descriptionRu}" required="true"/>
+                <rich:message for="description" ajaxRendered="true"/>
+
+                <a4j:region>
+                    <h:selectBooleanCheckbox  id="isPay" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="isPayment" value="#{applicationModel.addSightC.sightC.payment}" required="true">
+                        Is payment?
+                        <a4j:ajax event="change" render="pricePanel" execute="@region"/>
+                    </h:selectBooleanCheckbox>
+                    <rich:message for="isPay" ajaxRendered="true"/>
+                </a4j:region>
+
+                <a4j:outputPanel ajaxRendered="true" id="pricePanel">
+                    <h:inputText rendered="#{applicationModel.addSightC.sightC.payment}" id="price" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="price" value="#{applicationModel.addSightC.sightC.price}" required="true"/>
+                    <rich:message for="price" ajaxRendered="true"/>
+                </a4j:outputPanel>
+
+                <h:inputText id="ratting" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="ratting pattern 1/10, 3/10, 5/10, 7/10, 9/10" value="#{applicationModel.addSightC.sightC.ratting}" required="true"/>
+                <rich:message for="ratting" ajaxRendered="true"/>
+
+                <h:inputText id="workTime" style="width: 100%; height: 30px; margin-top: 5px" a:placeholder="workTime patern 09:00 - 22:00" value="#{applicationModel.addSightC.sightC.workTime}" required="true"/>
+                <rich:message for="workTime" ajaxRendered="true"/>
+                <h:selectOneMenu style="width: 100%; height: 35px;margin-top: 16px; margin-bottom: 16px" value="#{applicationModel.addSightC.sightC.category}">
+                    <f:selectItems value="#{applicationModel.addSightC.sightC.getCategoryList()}" var="category"
+                                   itemLabel="#{category.value}" itemValue="#{category}"/>
+                </h:selectOneMenu>
+                <span>Image load, and click button upload!</span>
+                <rich:fileUpload  fileUploadListener="#{applicationModel.addSightC.addFile}"/>
+                <a4j:commandButton style="width: 100%; height: 30px; margin-top: 5px" execute="@form" action="#{applicationModel.addSightC.add()}" value="ADD"/>
+            </a4j:outputPanel>
+        </h:form>
+    </ui:define>
+</ui:composition>

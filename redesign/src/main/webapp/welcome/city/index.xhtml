@@ -7,24 +7,28 @@
                 xmlns:a4j="http://richfaces.org/a4j"
                 template="#{facesContext.externalContext.requestContextPath}/layout/template.xhtml">
     <ui:define name="content">
+        <f:event type="preRenderView" listener="#{applicationModel.clear()}"/>
         <h:form>
             <a4j:outputPanel id="list" ajaxRendered="true">
                 <div class="line-block">
                     <ul>
                         <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/addSight.xhtml">Добавить</a>
+                            <a href="#">Гоорда</a>
+                        </li>
+                        <li>
+                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/city/addCity.xhtml">Добавить</a>
                         </li>
                     </ul>
                 </div>
-                <ui:repeat value="#{applicationModel.getSights(applicationModel.addSight.region)}" var="sight">
+                <ui:repeat value="#{applicationModel.getCityList()}" var="city">
                     <div class="block">
-                        <a4j:commandLink action="#{applicationModel.delete(sight)}" render="list">
-                            <img src="#{facesContext.externalContext.requestContextPath}/resources/img/delete.png" style="position: absolute; top: 0; right: 0; width: 36px; height: 36px;padding: 5px" />
+                        <a4j:commandLink action="#{applicationModel.delete(city)}" render="list">
+                            <img src="#{facesContext.externalContext.requestContextPath}/resources/img/delete.png" style="position: absolute; top: 0; right: 0; width: 36px; height: 36px;padding: 5px" alt="X"/>
                         </a4j:commandLink>
-                        <img src="#{facesContext.externalContext.requestContextPath}/rest/download?name=#{sight.imageUrl}"
-                             alt="IMG"/>
-                        <p class="title">#{sight.valueRu}</p>
-                        <p class="subtitle">#{sight.descriptionRu}</p>
+                        <a4j:commandLink action="#{applicationModel.addSightC.setCity(city)}">
+                            <p class="title">#{city.valueRu}</p>
+                            <p class="title">#{city.region.valueRu}</p>
+                        </a4j:commandLink>
                     </div>
                 </ui:repeat>
             </a4j:outputPanel>

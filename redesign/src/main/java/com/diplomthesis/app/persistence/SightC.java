@@ -4,8 +4,8 @@ import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "SIGHT")
-public class Sight {
+@Table(name = "SIGHT_CITY")
+public class SightC {
     @XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,8 +16,8 @@ public class Sight {
     @Column(name = "VALUE_KZ")
     private String valueKz;
     @ManyToOne
-    @JoinColumn(name = "REGION_ID")
-    private Region region;
+    @JoinColumn(name = "CITY_ID")
+    private City city;
     @Column(name = "DESCRIPTION_RU")
     private String descriptionRu;
     @Column(name = "DESCRIPTION_KZ")
@@ -73,12 +73,12 @@ public class Sight {
         this.valueKz = valueKz;
     }
 
-    public Region getRegion() {
-        return region;
+    public City getCity() {
+        return city;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setCity(City city) {
+        this.city = city;
     }
 
     public String getImageUrl() {
@@ -160,13 +160,11 @@ public class Sight {
     public void setAddressKz(String addressKz) {
         this.addressKz = addressKz;
     }
-
     public Category[] getCategoryList(){
         return Category.values();
     }
-
     public enum Category{
-        HISTORICAL_OBJECTS("Исторические обьекты"),REST_ZONE("Зона отдыха"),SANATORIUM("Санаторий");
+        HOTEL("Отель"),MUSEI("МУЗЕЙ");
         private String value;
         private int resId;
 

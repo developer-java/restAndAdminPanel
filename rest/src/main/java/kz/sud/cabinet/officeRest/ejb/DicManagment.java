@@ -1,9 +1,7 @@
 package kz.sud.cabinet.officeRest.ejb;
 
 
-import kz.sud.cabinet.officeRest.persistence.Coment;
-import kz.sud.cabinet.officeRest.persistence.Region;
-import kz.sud.cabinet.officeRest.persistence.Sight;
+import kz.sud.cabinet.officeRest.persistence.*;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -30,12 +28,27 @@ public class DicManagment {
     }
 
     public List<Sight> getSightList(Long id){
-        return em.createQuery("SELECT d FROM Sight d where d.region.id = :id")
+        return em.createQuery("SELECT d FROM Sight d where d.paternId.id = :id")
                 .setParameter("id",id)
                 .getResultList();
     }
+    public List<SightC> getSightListC(Long id){
+        return em.createQuery("SELECT d FROM SightC d where d.paternId.id = :id")
+                .setParameter("id",id)
+                .getResultList();
+    }
+    public List<SightC> getSightListC(){
+        return em.createQuery("SELECT d FROM SightC d")
+                .getResultList();
+    }
+    public List<Sight> getSightList(Sight.Category category, Long id){
+        return em.createQuery("SELECT d FROM Sight d where d.paternId.id = :id and d.category = :category")
+                .setParameter("id",id)
+                .setParameter("category",category)
+                .getResultList();
+    }
     public Long getCoundSightByRegionId(Long id){
-        return (Long) em.createQuery("SELECT COUNT(n) FROM Sight n WHERE n.region.id = :id")
+        return (Long) em.createQuery("SELECT COUNT(n) FROM Sight n WHERE n.paternId.id = :id")
                 .setParameter("id",id)
                 .getSingleResult();
     }
@@ -74,6 +87,20 @@ public class DicManagment {
     public List<Sight> getSightList(Sight.Category category) {
         return em.createQuery("SELECT s FROM Sight s WHERE s.category = :category")
                 .setParameter("category",category)
+                .getResultList();
+    }
+
+    public List<City> getCityList(Long id) {
+        List<City> coments = em.createQuery("SELECT d FROM City d where d.region.id = :id")
+                .setParameter("id",id)
+                .getResultList();
+        return coments;
+    }
+
+    public List<SightC> getSightCList(SightC.Category category, Long id) {
+        return em.createQuery("SELECT s FROM SightC s WHERE s.category = :ctg AND s.paternId.id = :id")
+                .setParameter("ctg",category)
+                .setParameter("id",id)
                 .getResultList();
     }
 }

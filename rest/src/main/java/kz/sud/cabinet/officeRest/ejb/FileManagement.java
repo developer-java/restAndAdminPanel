@@ -1,6 +1,7 @@
 package kz.sud.cabinet.officeRest.ejb;
 import kz.sud.cabinet.officeRest.persistence.Region;
 import kz.sud.cabinet.officeRest.persistence.Sight;
+import kz.sud.cabinet.officeRest.persistence.SightC;
 
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
@@ -17,6 +18,15 @@ public class FileManagement {
                 .getSingleResult();
         return sight.getImageUrl()==null ? null : sight.getImageUrl();
     }
+
+    public String getImagePathBySightCId(Long id){
+        SightC sight = em.createQuery("SELECT s FROM SightC s WHERE s.id = :id", SightC.class)
+                .setParameter("id",id)
+                .getSingleResult();
+        return sight.getImageUrl()==null ? null : sight.getImageUrl();
+    }
+
+
     public String getImagePathByRegionId(Long id){
         Region region = em.createQuery("SELECT r FROM Region r WHERE r.id = :id", Region.class)
                 .setParameter("id",id)

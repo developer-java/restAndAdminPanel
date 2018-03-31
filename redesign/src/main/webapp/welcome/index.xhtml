@@ -16,7 +16,7 @@
                             <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
                         </li>
                         <li>
-                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
+                            <a href="#{facesContext.externalContext.requestContextPath}/welcome/city/index.xhtml">Города</a>
                         </li>
                         <li>
                             <a href="#{facesContext.externalContext.requestContextPath}/welcome/add.xhtml">Добавить</a>
@@ -30,7 +30,7 @@
                                 <img src="#{facesContext.externalContext.requestContextPath}/resources/img/delete.png" style="position: absolute; top: 0; right: 0; width: 36px; height: 36px;padding: 5px" alt="X"/>
                             </a4j:commandLink>
                             <a4j:commandLink action="#{applicationModel.addSight.setRegion(region)}">
-                                <img src="#{facesContext.externalContext.requestContextPath}/rest/download?type=region&amp;id=#{region.id}"
+                                <img src="#{facesContext.externalContext.requestContextPath}/rest/download?name=#{region.imageUrl}"
                                      alt="IMG"/>
                                 <p class="title">#{region.valueRu}</p>
                             </a4j:commandLink>

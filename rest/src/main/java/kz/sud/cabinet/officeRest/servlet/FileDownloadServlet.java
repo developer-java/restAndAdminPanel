@@ -27,7 +27,7 @@ public class FileDownloadServlet extends HttpServlet {
         if(fileManagement == null) {
             try {
                 InitialContext ctx = new InitialContext();
-                fileManagement = (FileManagement)ctx.lookup("java:global/officeRest/FileManagement");
+                fileManagement = (FileManagement)ctx.lookup("java:global/rest/FileManagement");
             }
             catch(NamingException ne) {
                 ne.printStackTrace();
@@ -40,15 +40,8 @@ public class FileDownloadServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             req.setCharacterEncoding("UTF-8");
-            String type = req.getParameter("type");
-            String id = req.getParameter("id");
-            String path;
-            if(type.equals("region")){
-                path = getFileManagement().getImagePathByRegionId(Long.valueOf(id));
-            }else{
-                path = getFileManagement().getImagePathBySightId(Long.valueOf(id));
-            }
-            File file = new File(StaticData.FILE_CONTAINER + path);
+            String name = req.getParameter("name");
+            File file = new File(StaticData.FILE_CONTAINER + name);
             if(file.exists()) {
                 //resp.setCharacterEncoding("utf-8");
                 resp.setContentType("*/*");

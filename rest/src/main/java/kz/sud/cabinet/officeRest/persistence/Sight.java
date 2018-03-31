@@ -1,12 +1,9 @@
 package kz.sud.cabinet.officeRest.persistence;
 
-import org.hibernate.annotations.LazyCollection;
-import org.hibernate.annotations.LazyCollectionOption;
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
-import java.util.List;
-import java.util.Locale;
 
 @Entity
 @Table(name = "SIGHT")
@@ -22,9 +19,12 @@ public class Sight {
     private String valueKz;
     @ManyToOne
     @JoinColumn(name = "REGION_ID")
-    private Region region;
-    @Column(name = "DESCRIPTION")
-    private String description;
+    @JsonIgnore
+    private Region paternId;
+    @Column(name = "DESCRIPTION_RU")
+    private String descriptionRu;
+    @Column(name = "DESCRIPTION_KZ")
+    private String descriptionKz;
     @Column(name = "IMAGE")
     private String imageUrl;
     @Column(name = "WORK_TIME")
@@ -37,11 +37,33 @@ public class Sight {
     private int ratting;
     @Column(name = "CONTACT")
     private String contact;
-    @Column(name = "ADDRESS")
-    private String address;
+    @Column(name = "ADDRESS_RU")
+    private String addressRu;
+    @Column(name = "ADDRESS_KZ")
+    private String addressKz;
     @Enumerated(EnumType.STRING)
     @Column(name = "CATEGORY")
     private Category category;
+
+    public Sight() {
+    }
+
+    public Sight(Long id,String valueRu, String valueKz, String descriptionRu, String descriptionKz, String imageUrl, String workTime, boolean payment, String price, int ratting, String contact, String addressRu, String addressKz, Category category) {
+        this.id = id;
+        this.valueRu = valueRu;
+        this.valueKz = valueKz;
+        this.descriptionRu = descriptionRu;
+        this.descriptionKz = descriptionKz;
+        this.imageUrl = imageUrl;
+        this.workTime = workTime;
+        this.payment = payment;
+        this.price = price;
+        this.ratting = ratting;
+        this.contact = contact;
+        this.addressRu = addressRu;
+        this.addressKz = addressKz;
+        this.category = category;
+    }
 
     public Category getCategory() {
         return category;
@@ -74,20 +96,12 @@ public class Sight {
         this.valueKz = valueKz;
     }
 
-    public Region getRegion() {
-        return region;
+    public Region getPaternId() {
+        return paternId;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
+    public void setPaternId(Region paternId) {
+        this.paternId = paternId;
     }
 
     public String getImageUrl() {
@@ -138,16 +152,40 @@ public class Sight {
         this.contact = contact;
     }
 
-    public String getAddress() {
-        return address;
+    public String getDescriptionRu() {
+        return descriptionRu;
     }
 
-    public void setAddress(String address) {
-        this.address = address;
+    public void setDescriptionRu(String descriptionRu) {
+        this.descriptionRu = descriptionRu;
+    }
+
+    public String getDescriptionKz() {
+        return descriptionKz;
+    }
+
+    public void setDescriptionKz(String descriptionKz) {
+        this.descriptionKz = descriptionKz;
+    }
+
+    public String getAddressRu() {
+        return addressRu;
+    }
+
+    public void setAddressRu(String addressRu) {
+        this.addressRu = addressRu;
+    }
+
+    public String getAddressKz() {
+        return addressKz;
+    }
+
+    public void setAddressKz(String addressKz) {
+        this.addressKz = addressKz;
     }
 
     public enum Category{
-        ALL("Все"),HOTEL("Отель"),RESTAURANT("Рестораны"),MUSEUM("Музей"),MONUMENT("Монументы"),HISTORICAL_OBJECTS("Исторические обьекты"),RELIGIOUS_OBJECTS("Религиозные объекты"),REST_ZONE("Зона отдыха"),SANATORIUM("Санаторий");
+        HISTORICAL_OBJECTS("Исторические обьекты"),REST_ZONE("Зона отдыха"),SANATORIUM("Санаторий");
         private String value;
         private int resId;
 

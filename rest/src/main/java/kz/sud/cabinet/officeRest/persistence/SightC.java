@@ -1,11 +1,13 @@
-package com.diplomthesis.app.persistence;
+package kz.sud.cabinet.officeRest.persistence;
+
+import org.codehaus.jackson.annotate.JsonIgnore;
 
 import javax.persistence.*;
 import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "SIGHT")
-public class Sight {
+@Table(name = "SIGHT_CITY")
+public class SightC {
     @XmlTransient
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -16,8 +18,9 @@ public class Sight {
     @Column(name = "VALUE_KZ")
     private String valueKz;
     @ManyToOne
-    @JoinColumn(name = "REGION_ID")
-    private Region region;
+    @JoinColumn(name = "CITY_ID")
+    @JsonIgnore
+    private City paternId;
     @Column(name = "DESCRIPTION_RU")
     private String descriptionRu;
     @Column(name = "DESCRIPTION_KZ")
@@ -73,12 +76,12 @@ public class Sight {
         this.valueKz = valueKz;
     }
 
-    public Region getRegion() {
-        return region;
+    public City getPaternId() {
+        return paternId;
     }
 
-    public void setRegion(Region region) {
-        this.region = region;
+    public void setPaternId(City paternId) {
+        this.paternId = paternId;
     }
 
     public String getImageUrl() {
@@ -161,12 +164,8 @@ public class Sight {
         this.addressKz = addressKz;
     }
 
-    public Category[] getCategoryList(){
-        return Category.values();
-    }
-
     public enum Category{
-        HISTORICAL_OBJECTS("Исторические обьекты"),REST_ZONE("Зона отдыха"),SANATORIUM("Санаторий");
+        HOTEL("Отель"),MUSEI("МУЗЕЙ"),RESTORAN("Рестораны");
         private String value;
         private int resId;
 

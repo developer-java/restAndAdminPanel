@@ -1,12 +1,10 @@
 package com.diplomthesis.app.persistence;
 
 import javax.persistence.*;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name = "REGION")
-public class Region {
-    @XmlTransient
+@Table(name = "CITY")
+public class City {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "ID")
@@ -15,12 +13,9 @@ public class Region {
     private String valueRu;
     @Column(name = "VALUE_KZ")
     private String valueKz;
-    @Column(name = "CODE")
-    private String code;
-    @Column(name = "IMAGE")
-    private String imageUrl;
-    @Column(name = "COUNT_SIGHT")
-    private Long countSight;
+    @ManyToOne
+    @JoinColumn(name = "REGION_ID")
+    private Region region;
 
     public Long getId() {
         return id;
@@ -46,27 +41,11 @@ public class Region {
         this.valueKz = valueKz;
     }
 
-    public String getCode() {
-        return code;
+    public Region getRegion() {
+        return region;
     }
 
-    public void setCode(String code) {
-        this.code = code;
-    }
-
-    public String getImageUrl() {
-        return imageUrl;
-    }
-
-    public void setImageUrl(String imageUrl) {
-        this.imageUrl = imageUrl;
-    }
-
-    public Long getCountSight() {
-        return countSight;
-    }
-
-    public void setCountSight(Long countSight) {
-        this.countSight = countSight;
+    public void setRegion(Region region) {
+        this.region = region;
     }
 }

@@ -1,14 +1,13 @@
 package kz.sud.cabinet.officeRest;
 
 import kz.sud.cabinet.officeRest.ejb.DicManagment;
-import kz.sud.cabinet.officeRest.persistence.Coment;
-import kz.sud.cabinet.officeRest.persistence.Region;
-import kz.sud.cabinet.officeRest.persistence.Sight;
+import kz.sud.cabinet.officeRest.persistence.*;
 
 import javax.naming.InitialContext;
 import javax.naming.NamingException;
 import javax.ws.rs.*;
 import javax.ws.rs.core.MediaType;
+import java.util.ArrayList;
 import java.util.List;
 
 @Path("/dip")
@@ -21,7 +20,7 @@ public class Diplom {
         if(baseManagementEjb == null) {
             try {
                 InitialContext ctx = new InitialContext();
-                baseManagementEjb = (DicManagment)ctx.lookup("java:global/officeRest/DicManagment");
+                baseManagementEjb = (DicManagment)ctx.lookup("java:global/rest/DicManagment");
             }
             catch(NamingException ne) {
                 ne.printStackTrace();
@@ -42,6 +41,11 @@ public class Diplom {
         return list;
     }
     @GET
+    @Path("/sightc/{id}")
+    public List<SightC> getSightListByCity(@PathParam(value = "id")Long id){
+        return getBaseManagementEjb().getSightListC(id);
+    }
+    @GET
     @Path("/sight/")
     public List<Sight> getSightListAll(){
         List<Sight> list = getBaseManagementEjb().getSightList();
@@ -54,9 +58,28 @@ public class Diplom {
         List<Sight> list = null;
         if(category.equals("ALL")){
             list = getBaseManagementEjb().getSightList();
+            for(SightC s : getBaseManagementEjb().getSightListC()){
+                list.add(new Sight(s.getId(),s.getValueRu(),s.getValueKz(),s.getDescriptionRu(),s.getDescriptionKz(),s.getImageUrl(),s.getWorkTime(),s.isPayment(),s.getPrice(),s.getRatting(),s.getContact(),s.getAddressRu(),s.getAddressKz(),null));
+            }
         }else {
             list = getBaseManagementEjb().getSightList(Sight.Category.valueOf(category));
         }
+        return list;
+    }
+
+    @GET
+    @Path("/sight/category/{category}/city/{id}")
+    public List<SightC> getSightListByCategoryCity(@PathParam(value = "category")String category,@PathParam(value = "id") Long id){
+        List<SightC> list = null;
+        list = getBaseManagementEjb().getSightCList(SightC.Category.valueOf(category),id);
+        return list;
+    }
+
+    @GET
+    @Path("/sight/category/{category}/{regionId}")
+    public List<Sight> getSightListAll(@PathParam(value = "category")String category,@PathParam(value = "regionId")Long regionId){
+        List<Sight> list = null;
+        list = getBaseManagementEjb().getSightList(Sight.Category.valueOf(category), regionId);
         return list;
     }
 
@@ -77,5 +100,13 @@ public class Diplom {
         List<Coment> list = getBaseManagementEjb().getComentList(id);
         return list;
     }
+
+    @GET
+    @Path("/city/{id}")
+    public List<City> getCity(@PathParam(value = "id")Long id){
+        List<City> list = getBaseManagementEjb().getCityList(id);
+        return list;
+    }
+
 
 }

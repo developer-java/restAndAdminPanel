@@ -38,7 +38,6 @@ public class MainRestApplication extends Application {
     }
     private Set<Object> singletons = new HashSet<Object>();
     public MainRestApplication() {
-        //не работет CDI из-за того, что сервисы добавляются так, а не обнаруживаются контейнером
         singletons.add(new Diplom());
     }
 
